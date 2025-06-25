@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dehradun Disaster Evacuation Route Planner</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header-refactored">
+            <h1 class="main-title">Dehradun Disaster Evacuation Route Planner</h1>
+            <div class="helpline-strip" id="helplineBar">Emergency Helplines</div>
+        </header>
+
+        <main class="main-content">
+            <div class="left-panel">
+                <div class="controls">
+                    <div class="input-group">
+                        <label for="source">Select Disaster Area:</label>
+                        <select id="source">
+                            <option value="">Select a disaster area</option>
+                            <option value="Rajpur Road">Rajpur Road</option>
+                            <option value="Mussoorie Diversion">Mussoorie Diversion</option>
+                            <option value="Kandoli">Kandoli</option>
+                            <option value="Rajpur">Rajpur</option>
+                            <option value="Anarwala">Anarwala</option>
+                            <option value="Dalanwala">Dalanwala</option>
+                            <option value="Karanpur">Karanpur</option>
+                            <option value="Astley Hall">Astley Hall</option>
+                            <option value="Paltan Bazaar">Paltan Bazaar</option>
+                            <option value="Sahastradhara">Sahastradhara</option>
+                            <option value="Clement Town">Clement Town</option>
+                            <option value="Prem Nagar">Prem Nagar</option>
+                            <option value="Patel Nagar">Patel Nagar</option>
+                            <option value="Vasant Vihar">Vasant Vihar</option>
+                            <option value="Nehru Colony">Nehru Colony</option>
+                            <option value="Majra">Majra</option>
+                            <option value="ISBT">ISBT</option>
+                            <option value="Chakrata Road">Chakrata Road</option>
+                            <option value="Subhash Nagar">Subhash Nagar</option>
+                        </select>
+                    </div>
+                    <button onclick="calculateRoutes()">Find Evacuation Routes</button>
+                </div>
+
+                <div id="routes-list" class="routes-list">
+                    <!-- Routes will be displayed here -->
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Emergency Helpline Modal -->
+    <div id="helplineModal" class="modal-blur">
+      <div class="modal-content-refactored">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>📞 Emergency Numbers</h2>
+        <ul class="helpline-list">
+          <li><strong>Disaster Response:</strong> 108</li>
+          <li><strong>Police:</strong> 100</li>
+          <li><strong>Fire Brigade:</strong> 101</li>
+          <li><strong>Ambulance:</strong> 102</li>
+          <li><strong>Nearest Hospital:</strong> 112</li>
+          <li><strong>Disaster Management (NDMA):</strong> 1078</li>
+          <li><strong>Women Helpline:</strong> 1091</li>
+          <li><strong>Child Helpline:</strong> 1098</li>
+          <li><strong>Dehradun District Disaster Control Room:</strong> 0135-2726066</li>
+          <li><strong>Uttarakhand State Emergency Operation Center:</strong> 0135-2710334</li>
+          <li><strong>Blood Bank (AIIMS Rishikesh):</strong> 0135-2462929</li>
+          <li><strong>Railway Enquiry:</strong> 139</li>
+          <li><strong>Road Accident Emergency Service:</strong> 1073</li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+      // Modal functionality
+      const modal = document.getElementById('helplineModal');
+      const bar = document.getElementById('helplineBar');
+      const span = document.getElementById('closeModal');
+      bar.onclick = function() {
+        modal.style.display = 'flex';
+      }
+      span.onclick = function() {
+        modal.style.display = 'none';
+      }
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      }
+    </script>
+</body>
+</html> 
